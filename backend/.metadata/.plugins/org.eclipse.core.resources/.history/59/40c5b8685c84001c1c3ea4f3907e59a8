@@ -1,0 +1,66 @@
+package com.equiplano.seguro.rest;
+
+import javax.validation.Valid;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.equiplano.seguro.model.Cliente;
+import com.equiplano.seguro.persistence.ClientePersistence;
+
+
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+@RestController
+@RequestMapping("/api/cliente")
+public class ClienteRest {
+
+	private final ClientePersistence cp;
+	
+	public ClienteRest(ClientePersistence cp) {
+		this.cp=cp;
+	}
+	
+	@PostMapping
+	public ResponseEntity<String> cadastro(@Valid  @RequestBody Cliente cliente){
+		
+		cp.salvar(cliente);
+	return ResponseEntity.status(HttpStatus.CREATED).body("Cadastro realizado com sucesso !");
+	}
+	
+	
+	@PostMapping("/buscarPorCpf")
+	public ResponseEntity<String> buscarPorCpf(String cpf){
+		cp.buscarPorCpf(cpf);
+	return ResponseEntity.status(HttpStatus.CREATED).body("Cadastro realizado com sucesso !");
+	}
+	
+	
+	@PutMapping
+	public ResponseEntity<String> alterar(@Valid  @RequestBody Cliente cliente){
+	return ResponseEntity.status(HttpStatus.OK).body("Alteração realizada com sucesso !");		
+	}
+	
+	@GetMapping
+	public ResponseEntity<String> listar(){		
+	return  ResponseEntity.status(HttpStatus.OK).body("Lista");
+	}
+	
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<String> excluir(@PathVariable("cod") String cod ){		
+	return ResponseEntity.status(HttpStatus.OK).body("excluido");
+	}
+
+	
+	
+	
+}

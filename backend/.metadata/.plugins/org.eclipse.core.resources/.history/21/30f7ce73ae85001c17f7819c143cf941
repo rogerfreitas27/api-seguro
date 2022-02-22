@@ -1,0 +1,47 @@
+package com.equiplano.seguro.persistence;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.equiplano.seguro.model.Cliente;
+import com.equiplano.seguro.persistence.ApolicePersistence;
+import com.equiplano.seguro.repository.ClienteRepository;
+
+@Service
+public class ClientePersistence {
+	private final ClienteRepository cr;	
+	private final ApolicePersistence ap;
+	
+	
+	public ClientePersistence(ClienteRepository cr,ApolicePersistence ap) {
+		this.cr=cr;
+		this.ap=ap;
+	}
+	
+	
+	public void salvar(Cliente c) {
+		cr.save(c);
+	}
+	
+	
+	public void excluir(Long id) {
+		
+		
+		cr.deleteById(id);
+	}
+	
+	public <Optional> Cliente buscarPorCpf(String cpf) {
+		return cr.findByCpf(cpf);
+	}
+	
+	
+	public List<Cliente>  buscarTodos(){
+	return	cr.findAll();
+	}
+	
+	
+	
+	
+
+}

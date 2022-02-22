@@ -1,0 +1,77 @@
+<app-menu></app-menu>
+<div class="card">
+    <div class="card-header">
+    <div class=text-center>
+     <h1>Apolices</h1>
+     </div>
+    </div>
+    
+  </div>
+
+  <br>
+
+
+
+
+  <div class="container">
+
+    <div class="form-group">
+                         
+      <div class=text-right>
+        <input type="button"  routerLink="/cadastro-apolice" value="Nova Apolice"  class="btn btn-primary">
+      </div>    
+  
+  
+  </div>
+  <br>
+
+
+
+
+
+
+
+
+  <div *ngIf="spinner">
+    <app-spinner></app-spinner>
+  </div>
+
+
+
+
+
+  <div class="card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table  *ngIf="show"  datatable [dtOptions]="dtOptions"    [dtTrigger]="dtTrigger"  class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th>Numero</th>
+                <th>INICIO</th>
+                <th>FIM</th>
+                <th>CLIENTE </th>
+                <th>EDITAR</th>
+                <th>EXCLUIR</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let apolice of apolices">
+                <td>{{apolice.numero}}</td>
+                <td>{{apolice.inicio  | date:"dd/MM/yyyy"}}</td>
+                <td>{{apolice.fim  | date:"dd/MM/yyyy"}}</td>
+                <td>{{apolice.cliente.nome}}</td>
+                <td><a class="btn btn-info"  (click)="buscarPorId(apolice)" ><i class="fa fa-lg fa-edit"  title="Editar"></i></a></td>
+                <td><a class="btn btn-danger"  (click)="excluir(apolice.id)"><i class="fa fa-lg fa-trash"  title="Excluir"></i></a></td>
+              </tr>
+            </tbody>
+          </table>
+          
+        
+    </div>
+  </div>
+  </div>
+
+
+  
+  </div>
+

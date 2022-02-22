@@ -1,0 +1,163 @@
+<app-menu></app-menu>
+<div class="card">
+    <div class="card-header">
+    <div class=text-center>
+     <h1>Formulário de Apólice</h1>
+     </div>
+    </div>
+    
+  </div>
+
+  
+  <br>
+  <br>
+  <br>
+  
+
+  <div class="container">
+    <div *ngIf="mensagem_erro">
+      <ngb-alert [dismissible]="true" (closed)="mensagem_erro = ''" type='danger'>
+      <strong>{{mensagem_erro}}</strong>
+      </ngb-alert> 
+      </div>
+
+      <div *ngIf="mensagem_sucesso">
+        <ngb-alert [dismissible]="true" (closed)="mensagem_sucesso = ''" type='success'>
+        <strong>{{mensagem_sucesso}}</strong>
+        </ngb-alert> 
+        </div>
+
+    <div class="card text-center">
+      <div class="card-header">
+        {{title}}
+      </div>
+      <div class="card-body">
+        
+         <form [formGroup]="formApolice" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col">
+              <label for="lbl-cpf">CPF:</label>              
+              <input type="text"  formControlName="cpf"  mask="000.000.000-00" (blur)="buscarPorCpf()" class="form-control" placeholder="Cpf do cliente">
+              <div *ngIf="cpf.invalid && (cpf.dirty || cpf.touched)"  class="alert alert-danger">
+		  		  
+                <div *ngIf="cpf.errors?.required" class="alert alert-danger">
+      Campo cpf é obrigatório.
+                  </div>
+                  
+                   <div *ngIf="cpf.errors?.minlength" class="alert alert-danger">
+      Minimo de 11 caracteres
+                  </div>
+                  
+                  <div *ngIf="cpf.errors?.maxlength" class="alert alert-danger">
+      Maximo de 11 caracteres
+                  </div>               
+                 </div>            
+            </div>
+            <div class="col">
+              <label for="lbl-numero">N° Apólice:</label>
+              <input type="text"   formControlName="numero" class="form-control" placeholder="N° da apólice" readonly>
+            </div>
+          </div>
+  
+          <br>
+
+          <div class="row">
+            <div class="col">
+              <label for="inicio">Inicio da vigência:</label>
+              <input type="date"   formControlName="inicio" class="form-control" placeholder="Inicio da vigência">
+        <!--      <div class="input-group">
+               <input class="form-control" type="text"  placeholder="dd/mm/aaaa" 
+       formControlName="inicio"  ngbDatepicker #d="ngbDatepicker">
+       <div class="input-group-append">
+       <button class="btn btn-outline-secondary calendar fa fa-calendar" (click)="d.toggle()" type="button"></button>
+       </div>
+     </div>  -->
+
+     <div *ngIf="inicio.invalid && (inicio.dirty || inicio.touched)"  class="alert alert-danger">
+		  		  
+      <div *ngIf="inicio.errors?.required" class="alert alert-danger">
+Data de inicio é obrigatória.
+        </div>
+        
+                       
+       </div>
+
+    
+            </div>
+
+
+            <div class="col">
+              <label for="fim">Fim da vigência:</label>
+              <input type="date"   formControlName="fim" class="form-control" placeholder="Fim da vigência">
+           <!--   <div class="input-group">
+                <input class="form-control" type="date" placeholder="dd/mm/aaaa"
+        formControlName="fim"  ngbDatepicker #dp="ngbDatepicker">
+        <div class="input-group-append">
+        <button class="btn btn-outline-secondary calendar fa fa-calendar" (click)="dp.toggle()" type="button"></button>
+        </div>
+      </div> -->
+
+      <div *ngIf="fim.invalid && (fim.dirty || fim.touched)"  class="alert alert-danger">
+		  		  
+        <div *ngIf="fim.errors?.required" class="alert alert-danger">
+  Data final é obrigatória.
+          </div>
+          
+                         
+         </div>
+
+            </div>
+          </div>
+
+<br>
+         
+<div class="row">
+  <div class="col">
+    <label for="placa">Placa:</label>
+    <input type="text"  formControlName="placa" class="form-control" placeholder="Placa">
+    <div *ngIf="placa.invalid && (placa.dirty || placa.touched)"  class="alert alert-danger">
+		  		  
+      <div *ngIf="placa.errors?.required" class="alert alert-danger">
+Placa é obrigatória.
+        </div>
+        
+                       
+       </div>
+    
+
+
+  </div>
+  <div class="col">
+    <label for="valor">Valor:</label>
+    <input type="text"  formControlName="valor" prefix="R$"  mask="separator.2" thousandSeparator="."   class="form-control" placeholder="Valor R$">
+  
+    <div *ngIf="valor.invalid && (valor.dirty || valor.touched)"  class="alert alert-danger">
+		  		  
+      <div *ngIf="valor.errors?.required" class="alert alert-danger">
+Valor é obrigatório.
+        </div>
+        
+                       
+       </div>
+  
+  </div>
+</div>
+
+<br>
+
+<div class="form-group">                     
+  <div class=text-right>
+    <button type="submit" [disabled]="formApolice.invalid" class="btn btn-primary">Salvar</button>
+  </div>
+</div>
+
+        </form>
+      </div>
+    </div>
+
+
+
+  </div>
+
+
+

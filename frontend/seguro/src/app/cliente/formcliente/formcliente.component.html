@@ -1,0 +1,170 @@
+<app-menu></app-menu>
+<div class="card">
+    <div class="card-header">
+    <div class=text-center>
+     <h1>Formulario de Clientes</h1>
+     </div>
+    </div>
+    
+  </div>
+
+  <br>
+  <br>
+  <br>
+  <div class="container">
+
+    <div *ngIf="mensagem_sucesso">
+      <ngb-alert [dismissible]="true" (closed)="mensagem_sucesso = ''" type='success'>
+        <strong>{{mensagem_sucesso}}</strong>
+      </ngb-alert> 
+      </div>
+
+      <div *ngIf="mensagem">
+        <ngb-alert [dismissible]="true" (closed)="mensagem = ''" type='danger'>
+          <strong>{{mensagem}}</strong>
+        </ngb-alert> 
+        </div>
+
+  <div class="card text-center">
+    <div class="card-header">
+      {{title}}
+    </div>
+    <div class="card-body">
+      <form [formGroup]="formCliente" (ngSubmit)="onSubmit()">
+        <input type="hidden" id="id" name="id" formControlName="id">
+
+        <div class="row">
+          <div class="col">
+            <label for="nome">NOME:</label>
+            <input type="text" class="form-control" formControlName="nome" placeholder="Nome">
+            <div *ngIf="nome.invalid && (nome.dirty || nome.touched)"  class="alert alert-danger">
+		  		  
+              <div *ngIf="nome.errors?.required" class="alert alert-danger">
+    Campo nome é obrigatório.
+                </div>
+                
+                 <div *ngIf="nome.errors?.minlength" class="alert alert-danger">
+    Minimo de 3 caracteres
+                </div>
+                
+                <div *ngIf="nome.errors?.maxlength" class="alert alert-danger">
+    Maximo de 255 caracteres
+                </div>               
+               </div>
+
+          </div>
+          <div class="col">
+            <label for="cpf">CPF:</label>
+            <input type="text" class="form-control"  mask="000.000.000-00"    (blur)="verificaCpf()"  formControlName="cpf" placeholder="Cpf">
+          
+            <div *ngIf="cpf.invalid && (cpf.dirty || cpf.touched)"  class="alert alert-danger">
+		  		  
+              <div *ngIf="cpf.errors?.required" class="alert alert-danger">
+    Campo cpf é obrigatório.
+                </div>
+                
+                 <div *ngIf="cpf.errors?.minlength" class="alert alert-danger">
+    Minimo de 11 caracteres
+                </div>
+                
+                <div *ngIf="cpf.errors?.maxlength" class="alert alert-danger">
+    Maximo de 11 caracteres
+                </div>               
+               </div>
+               <div *ngIf="mensagem_erro">
+                <ngb-alert [dismissible]="true" (closed)="mensagem_erro = ''" type='danger'>
+                  <strong>{{mensagem_erro}}</strong>
+                </ngb-alert> 
+                </div>
+          </div>
+        </div>
+
+        <br>
+        <div class="row">
+          <div class="col">
+            <label for="estado">UF:</label>
+            <select class="form-control" formControlName="uf">
+              <option hidden value="" disabled selected>Selecione um Estado... </option>
+              <option value="AC">Acre</option>
+              <option value="AL">Alagoas</option>
+              <option value="AP">Amapá</option>
+              <option value="AM">Amazonas</option>
+              <option value="BA">Bahia</option>
+              <option value="CE">Ceará</option>
+              <option value="DF">Distrito Federal</option>
+              <option value="ES">Espírito Santo</option>
+              <option value="GO">Goiás</option>
+              <option value="MA">Maranhão</option>
+              <option value="MT">Mato Grosso</option>
+              <option value="MS">Mato Grosso do Sul</option>
+              <option value="MG">Minas Gerais</option>
+              <option value="PA">Pará</option>
+              <option value="PB">Paraíba</option>
+              <option value="PR">Paraná</option>
+              <option value="PE">Pernambuco</option>
+              <option value="PI">Piauí</option>
+              <option value="RJ">Rio de Janeiro</option>
+              <option value="RN">Rio Grande do Norte</option>
+              <option value="RS">Rio Grande do Sul</option>
+              <option value="RO">Rondônia</option>
+              <option value="RR">Roraima</option>
+              <option value="SC">Santa Catarina</option>
+              <option value="SP">São Paulo</option>
+              <option value="SE">Sergipe</option>
+              <option value="TO">Tocantins</option>
+            </select>
+            
+            <div *ngIf="uf.invalid && (uf.dirty || uf.touched)"  class="alert alert-danger">
+		  		  
+              <div *ngIf="uf.errors?.required" class="alert alert-danger">
+    Campo uf é obrigatório.
+                </div>               
+                               
+               </div>
+              
+         
+          </div>
+          <div class="col">
+            <label for="cidade">CIDADE:</label>
+            <input type="text" class="form-control" formControlName="cidade" placeholder="Cidade">
+         
+            <div *ngIf="cidade.invalid && (cidade.dirty || cidade.touched)"  class="alert alert-danger">
+		  		  
+              <div *ngIf="cidade.errors?.required" class="alert alert-danger">
+    Campo cidade é obrigatório.
+                </div>
+                
+                 <div *ngIf="cidade.errors?.minlength" class="alert alert-danger">
+    Minimo de 3 caracteres
+                </div>
+                
+                <div *ngIf="cidade.errors?.maxlength" class="alert alert-danger">
+    Maximo de 60 caracteres
+                </div>               
+               </div>
+
+          </div>
+        </div>
+
+        <br>
+
+        <div class="form-group">
+                     
+          <div class=text-right>
+            <button type="submit" [disabled]="formCliente.invalid" class="btn btn-primary">Salvar</button>
+          </div>
+          
+          
+      
+      
+      </div>
+
+      </form>
+
+
+    </div>
+
+    </div>
+
+  </div>
+

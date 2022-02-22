@@ -1,0 +1,12 @@
+package com.equiplano.model;
+
+
+public class Cliente {
+
+	
+	private Long id ;
+	private String nome;
+	private String cidade;
+	private String uf;
+	private String cpf;
+}

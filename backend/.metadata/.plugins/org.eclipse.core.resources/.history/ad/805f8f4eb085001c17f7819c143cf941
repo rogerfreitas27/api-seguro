@@ -1,0 +1,64 @@
+package com.equiplano.seguro.persistence;
+
+import java.util.List;
+import java.util.Random;
+
+import org.springframework.stereotype.Service;
+
+import com.equiplano.seguro.model.Apolice;
+import com.equiplano.seguro.repository.ApoliceRepository;
+
+@Service
+public class ApolicePersistence {
+	private final ApoliceRepository ar;
+	
+	public ApolicePersistence(ApoliceRepository ar) {
+		this.ar=ar;
+		
+	}
+	
+	
+	
+	public Long salvar(Apolice a) {
+		
+		if(a.getId()==null) {
+		return	cadastrar(a);
+		}else
+		return	alterar(a);
+	}
+	
+	private Long alterar(Apolice a) {
+		ar.save(a);
+		return a.getNumero();
+	}
+	
+	private Long cadastrar(Apolice a) {
+		Random aleatorio = new Random();
+		Long num = Math.abs(aleatorio.nextLong());
+		a.setNumero(num);
+		ar.save(a);
+		return num;
+	}
+	
+	public boolean verificaApolice(Long id) {
+		return ar.existsById(id);
+	}
+	
+	public void excluir(Long id) {
+		ar.deleteById(id);
+	}
+	
+	public int contadorApoliceCliente(Long id) {
+		return ar.contadorApoliceCliente(id);
+	}
+	
+	public <Optional> Apolice buscarPorNumero(String numero) {
+		return ar.findByNumero(numero);
+	}
+	
+	
+	public List<Apolice>  buscarTodos(){
+	return	ar.findAll();
+	}
+
+}
